@@ -8,7 +8,9 @@ public class IpAddressUtil {
     private static final String OCTET_DELIMITER_PATTERN = ".";
 
     public static boolean validateIpv4Address(String ip) {
-        return !hasNotValidOctets(ip);
+        if (hasNotValidOctets(ip)) return false;
+        if (hasNotFourOctets(ip)) return false;
+        return true;
     }
 
     private static String[] getOctets(String ip) {
@@ -17,7 +19,6 @@ public class IpAddressUtil {
 
     private static boolean hasNotValidOctets(String ip) {
         String[] octets = getOctets(ip);
-        if (!hasFourOctets(octets)) return false;
         return Stream.of(octets).anyMatch(IpAddressUtil::isNotValidOctet);
     }
 
@@ -31,7 +32,8 @@ public class IpAddressUtil {
         }
     }
 
-    private static boolean hasFourOctets(String[] octets) {
-        return octets.length == VALID_OCTETS_COUNT;
+    private static boolean hasNotFourOctets(String ip) {
+        String[] octets = getOctets(ip);
+        return octets.length != VALID_OCTETS_COUNT;
     }
 }
