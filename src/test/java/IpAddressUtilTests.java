@@ -16,4 +16,9 @@ public class IpAddressUtilTests {
     public void validateBroadcastAddressIsInvalid() {
         Assertions.assertFalse(IpAddressUtil.validateIpv4Address("255.255.255.255"));
     }
+
+    @Test
+    public void validateAddressWithZeros() {
+        Assertions.assertFalse(IpAddressUtil.validateIpv4Address("0.0.0.0"));
+    }
 }
