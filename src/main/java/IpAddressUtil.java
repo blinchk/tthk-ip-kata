@@ -1,3 +1,6 @@
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
 public class IpAddressUtil {
     private static final int MINIMUM_POSSIBLE_VALUE = 0;
     private static final int MAXIMUM_POSSIBLE_VALUE = 255;
@@ -5,6 +8,30 @@ public class IpAddressUtil {
     private static final String OCTET_DELIMITER_PATTERN = ".";
 
     public static boolean validateIpv4Address(String ip) {
-        return false;
+        return !hasNotValidOctets(ip);
+    }
+
+    private static String[] getOctets(String ip) {
+        return ip.split(Pattern.quote(OCTET_DELIMITER_PATTERN));
+    }
+
+    private static boolean hasNotValidOctets(String ip) {
+        String[] octets = getOctets(ip);
+        if (!hasFourOctets(octets)) return false;
+        return Stream.of(octets).anyMatch(IpAddressUtil::isNotValidOctet);
+    }
+
+    private static boolean isNotValidOctet(String octetString) {
+        try {
+            int octet = Integer.parseInt(octetString);
+            if (octet != MINIMUM_POSSIBLE_VALUE && octetString.startsWith(String.valueOf(MINIMUM_POSSIBLE_VALUE))) return false;
+            return octet < MINIMUM_POSSIBLE_VALUE || octet > MAXIMUM_POSSIBLE_VALUE;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private static boolean hasFourOctets(String[] octets) {
+        return octets.length == VALID_OCTETS_COUNT;
     }
 }
