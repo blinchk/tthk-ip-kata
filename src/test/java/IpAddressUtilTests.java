@@ -11,4 +11,9 @@ public class IpAddressUtilTests {
     public void validateNetworkAddressIsInvalid() {
         Assertions.assertFalse(IpAddressUtil.validateIpv4Address("1.1.1.0"));
     }
+
+    @Test
+    public void validateBroadcastAddressIsInvalid() {
+        Assertions.assertFalse(IpAddressUtil.validateIpv4Address("255.255.255.255"));
+    }
 }
