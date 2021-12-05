@@ -26,4 +26,19 @@ public class IpAddressUtilTests {
     public void validateLocalhostIsValid() {
         Assertions.assertTrue(IpAddressUtil.validateIpv4Address("127.0.0.1"));
     }
+
+    @Test
+    public void validateRouterDefaultIsValid() {
+        Assertions.assertTrue(IpAddressUtil.validateIpv4Address("192.168.1.1"));
+    }
+
+    @Test
+    public void validateRouterAlternativeDefaultIsValid() {
+        Assertions.assertTrue(IpAddressUtil.validateIpv4Address("10.0.0.1"));
+    }
+
+    @Test
+    public void validateBasicIpIsValid() {
+        Assertions.assertTrue(IpAddressUtil.validateIpv4Address("1.1.1.1"));
+    }
 }
