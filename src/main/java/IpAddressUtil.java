@@ -10,6 +10,8 @@ public class IpAddressUtil {
     public static boolean validateIpv4Address(String ip) {
         if (hasNotValidOctets(ip)) return false;
         if (hasNotFourOctets(ip)) return false;
+        if (isNetworkAddress(ip)) return false;
+        if (isBroadcastAddress(ip)) return false;
         return true;
     }
 
