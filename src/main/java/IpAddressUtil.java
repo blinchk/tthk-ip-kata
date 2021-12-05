@@ -36,4 +36,12 @@ public class IpAddressUtil {
         String[] octets = getOctets(ip);
         return octets.length != VALID_OCTETS_COUNT;
     }
+
+    private static boolean isBroadcastAddress(String ip) {
+        return ip.endsWith("." + String.valueOf(MAXIMUM_POSSIBLE_VALUE));
+    }
+
+    private static boolean isNetworkAddress(String ip) {
+        return ip.endsWith("." + String.valueOf(MINIMUM_POSSIBLE_VALUE));
+    }
 }
