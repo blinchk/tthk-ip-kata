@@ -18,7 +18,12 @@ public class IpAddressUtilTests {
     }
 
     @Test
-    public void validateAddressWithZeros() {
+    public void validateAddressWithZerosIsInvalid() {
         Assertions.assertFalse(IpAddressUtil.validateIpv4Address("0.0.0.0"));
+    }
+
+    @Test
+    public void validateLocalhostIsValid() {
+        Assertions.assertTrue(IpAddressUtil.validateIpv4Address("127.0.0.1"));
     }
 }
